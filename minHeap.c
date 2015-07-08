@@ -11,7 +11,7 @@
 
 #define LCHILD(x) 2 * x + 1
 #define RCHILD(x) 2 * x + 2
-#define PARENT(x) x / 2
+#define PARENT(x) (x - 1) / 2
 
 typedef struct node {
     int data ;

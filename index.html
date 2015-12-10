@@ -144,7 +144,7 @@ typedef struct minHeap {
 
 <pre><code>void heapify(minHeap *hp, int i) {
     int smallest = (LCHILD(i) &lt; hp-&gt;size &amp;&amp; hp-&gt;elem[LCHILD(i)].data &lt; hp-&gt;elem[i].data) ? LCHILD(i) : i ;
-    if(RCHILD(i) &lt; hp-&gt;size &amp;&amp; hp-&gt;elem[RCHILD(i)].data &lt; hp-&gt;elem[largest].data) {
+    if(RCHILD(i) &lt; hp-&gt;size &amp;&amp; hp-&gt;elem[RCHILD(i)].data &lt; hp-&gt;elem[smallest].data) {
         smallest = RCHILD(i) ;
     }
     if(smallest != i) {

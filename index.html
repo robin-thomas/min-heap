@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <title>Implementation of Min Heap in C - Robin Thomas</title>
+    <title>Min Heap by robin-thomas</title>
   </head>
 
   <body>
@@ -18,7 +18,7 @@
       <div class="inner">
 
         <header>
-          <h1>A Study In Min Heap</h1>
+          <h1>Min Heap</h1>
           <h2></h2>
         </header>
 
@@ -32,15 +32,15 @@
 
         <section id="main_content">
           <h1>
-<a name="what-is-a-min-heap-" class="anchor" href="#what-is-a-min-heap-"><span class="octicon octicon-link"></span></a>What is a Min Heap ?<br><br>
+<a id="what-is-a-min-heap-" class="anchor" href="#what-is-a-min-heap-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is a Min Heap ?<br><br>
 </h1>
 
 <h3>
-<a name="min-heap-is-data-structure-that-satisfies-two-properties-" class="anchor" href="#min-heap-is-data-structure-that-satisfies-two-properties-"><span class="octicon octicon-link"></span></a><em>Min heap is data structure that satisfies two properties :</em>
+<a id="min-heap-is-data-structure-that-satisfies-two-properties-" class="anchor" href="#min-heap-is-data-structure-that-satisfies-two-properties-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><em>Min heap is data structure that satisfies two properties :</em>
 </h3>
 
 <h3>
-<a name="shape-property" class="anchor" href="#shape-property"><span class="octicon octicon-link"></span></a><em>Shape property</em>
+<a id="shape-property" class="anchor" href="#shape-property" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><em>Shape property</em>
 </h3>
 
 <p><em>It states that min heap is a complete binary tree, which is a binary tree that is filled at all levels, except perhaps the last level, which is filled from left to right.</em> </p>
@@ -48,7 +48,7 @@
 <p>We can infer a couple of things from the above statement. Firstly, the leaf nodes of the tree will be in last level or the level above it. Secondly, in all levels except perhaps the last level, every parent node should exactly have two children. And finally, no right sibilng can exist without its left sibling.</p>
 
 <h3>
-<a name="heap-property" class="anchor" href="#heap-property"><span class="octicon octicon-link"></span></a><em>Heap property</em>
+<a id="heap-property" class="anchor" href="#heap-property" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><em>Heap property</em>
 </h3>
 
 <p><em>It states that the value of the parent node is always less than or equal to that of its children.</em></p>
@@ -57,15 +57,17 @@
 
 <p>If any of the above two property is violated, its not a min heap.</p>
 
-<hr><h1>
-<a name="various-heap-operations" class="anchor" href="#various-heap-operations"><span class="octicon octicon-link"></span></a>Various Heap Operations<br><br>
+<hr>
+
+<h1>
+<a id="various-heap-operations" class="anchor" href="#various-heap-operations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Various Heap Operations<br><br>
 </h1>
 
 <p>Various operations like insertion and deletion of a node can be done efficiently using a min heap structure. But before we get into that, lets first start with how to create a min heap structure. Given below is the C code for the same.</p>
 
 <pre><code>#define LCHILD(x) 2 * x + 1
 #define RCHILD(x) 2 * x + 2
-#define PARENT(x) x / 2
+#define PARENT(x) (x - 1) / 2
 
 typedef struct node {
     int data ;
@@ -98,7 +100,7 @@ typedef struct minHeap {
 </code></pre>
 
 <h3>
-<a name="insertion" class="anchor" href="#insertion"><span class="octicon octicon-link"></span></a>Insertion</h3>
+<a id="insertion" class="anchor" href="#insertion" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Insertion</h3>
 
 <p>At best case, it takes only O(1) time to insert a node into min heap. But at worst case, the new node may be lower than all nodes in the heap, that it needs to be compared with log(n) elements at most to be put into the root node position. So insertion operation is normally considered as an O(logn) operation. Given below is the C code for the same.</p>
 
@@ -131,7 +133,7 @@ typedef struct minHeap {
 <p>In last part of insertNode() function, we shall find the correct position for the new node in min heap structure. We consider the new memory space created. We shall compare value of last node with the new node value. If its more, we shall move it to the new memory location. We shall now check its parent node, and compare it with new node. If its more, we shall move it to old position of last node. It will continue until we find a node which has value lower than the new node, and place the new node as a child node of that node.</p>
 
 <h3>
-<a name="deletion" class="anchor" href="#deletion"><span class="octicon octicon-link"></span></a>Deletion</h3>
+<a id="deletion" class="anchor" href="#deletion" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deletion</h3>
 
 <p>Deletion operation is quite different from insertion operation. In each deletion operation, we shall delete the minimum element from min heap, ie, we shall always delete the root node in each deletion operation, and place the last node in root node position. Since we are placing a leaf node in root node, its guaranteed that heap property shall be violated. We shall then call a special function called heapify() function recursively to make sure that heap property is satisfied.</p>
 
@@ -144,7 +146,7 @@ typedef struct minHeap {
 
 <pre><code>void heapify(minHeap *hp, int i) {
     int smallest = (LCHILD(i) &lt; hp-&gt;size &amp;&amp; hp-&gt;elem[LCHILD(i)].data &lt; hp-&gt;elem[i].data) ? LCHILD(i) : i ;
-    if(RCHILD(i) &lt; hp-&gt;size &amp;&amp; hp-&gt;elem[RCHILD(i)].data &lt; hp-&gt;elem[smallest].data) {
+    if(RCHILD(i) &lt; hp-&gt;size &amp;&amp; hp-&gt;elem[RCHILD(i)].data &lt; hp-&gt;elem[largest].data) {
         smallest = RCHILD(i) ;
     }
     if(smallest != i) {
@@ -172,7 +174,7 @@ typedef struct minHeap {
 <p>In heapify() function, given a node at index i, we shall compare all the three nodes (parent, left and right child), and find the smallest node among the three. If its not the parent node, then heap property is violated. Swap parent node with smallest node, and call heapify() function until heap property is satisfied.</p>
 
 <h3>
-<a name="buildminheap" class="anchor" href="#buildminheap"><span class="octicon octicon-link"></span></a>BuildMinHeap</h3>
+<a id="buildminheap" class="anchor" href="#buildminheap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>BuildMinHeap</h3>
 
 <p>Given an array of n numbers, we can call the insertNode() function n times to create the min heap. Since each call to insertNode() can take upto O(logn) time, we need a maximum of O(nlogn) time to create the entire min heap. But instead of following such an approach, we can follow a relatively better buildMinHeap() function that requires only O(n) time.</p>
 
@@ -203,14 +205,14 @@ typedef struct minHeap {
 <p>In last step, we shall determine the last parent in the heap and call heapify() function on that parent node, until heap property is satisfied for that node. We shall then work back by calling heapify() function on each of those parent nodes, until we reach root node, by which time, heap property shall be satisfied.</p>
 
 <h3>
-<a name="traversal" class="anchor" href="#traversal"><span class="octicon octicon-link"></span></a>Traversal</h3>
+<a id="traversal" class="anchor" href="#traversal" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Traversal</h3>
 
 <p>There are mainly two types of traversals possible on a min heap - depth first traversal and breadth first (level order) traversal. </p>
 
 <p>In depth first traversal, we visit the nodes depth-wise, meaning that we go deeper and deeper into childrens of a left sibling before covering the right sibling. There are mainly three depth first traversals possible - inorder, preorder and postorder traversal.</p>
 
 <h4>
-<a name="inorder-traversal" class="anchor" href="#inorder-traversal"><span class="octicon octicon-link"></span></a>Inorder Traversal</h4>
+<a id="inorder-traversal" class="anchor" href="#inorder-traversal" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Inorder Traversal</h4>
 
 <pre><code>void inorderTraversal(minHeap *hp, int i) {
     if(LCHILD(i) &lt; hp-&gt;size) {
@@ -226,7 +228,7 @@ typedef struct minHeap {
 <p>In the above function, we check whether left child of a node at index i exists in the heap. If yes, we call the inorderTraveral() function on the left child. We now display value of the node at index i. Then we check whether right child of a node at index i exists in the heap. If yes, we call inorderTraversal() on the right child. This shall continue until we traverse the whole min heap.</p>
 
 <h4>
-<a name="preorder-traversal" class="anchor" href="#preorder-traversal"><span class="octicon octicon-link"></span></a>Preorder Traversal</h4>
+<a id="preorder-traversal" class="anchor" href="#preorder-traversal" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Preorder Traversal</h4>
 
 <pre><code>void preorderTraversal(minHeap *hp, int i) {
     if(LCHILD(i) &lt; hp-&gt;size) {
@@ -242,7 +244,7 @@ typedef struct minHeap {
 <p>In the above function, we check whether left child of the node at index i exists. If yes, we call preorderTraversal() on the left child. We then check whether right of the node exists. If yes, we call preorderTraversal() on the right child. we then display the value of the node at index i. We can see that code for preorderTraversal() and inorderTraversal() are quite similar and shall be similar to postorderTraversal() function. The only difference is the order in which the recursive functions are called.</p>
 
 <h4>
-<a name="postorder-traversal" class="anchor" href="#postorder-traversal"><span class="octicon octicon-link"></span></a>Postorder Traversal</h4>
+<a id="postorder-traversal" class="anchor" href="#postorder-traversal" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Postorder Traversal</h4>
 
 <pre><code>void postorderTraversal(minHeap *hp, int i) {
     printf("%d ", hp-&gt;elem[i].data) ;
@@ -258,7 +260,7 @@ typedef struct minHeap {
 <p>In postOrderTraversal() function, we display the value of the node at index 1, and recursively call the function, first on the left child and then on the right child, until we traverse the whole min heap.</p>
 
 <h4>
-<a name="levelorder-traversal" class="anchor" href="#levelorder-traversal"><span class="octicon octicon-link"></span></a>Levelorder Traversal</h4>
+<a id="levelorder-traversal" class="anchor" href="#levelorder-traversal" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Levelorder Traversal</h4>
 
 <pre><code>void levelOrderTraversal(minHeap *hp) {
     int i ;
@@ -270,8 +272,10 @@ typedef struct minHeap {
 
 <p>Implementing level order traversal is quite simple, as we are using the array implementation. All we need to do is to traverse through the whole array from index 0 to (hp-&gt;size - 1) to get the level order traversal.</p>
 
-<hr><h1>
-<a name="applications-of-min-heap" class="anchor" href="#applications-of-min-heap"><span class="octicon octicon-link"></span></a>Applications of Min Heap<br><br>
+<hr>
+
+<h1>
+<a id="applications-of-min-heap" class="anchor" href="#applications-of-min-heap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Applications of Min Heap<br><br>
 </h1>
 
 <p>As you are already aware by now, when we delete an element from the min heap, we always get the minimum valued node from the min heap, which means that we can access the minimum valued node in O(1) time. So if you need a quick access to the smallest value element, you can go for min heap implementation.</p>
@@ -281,7 +285,7 @@ typedef struct minHeap {
 
         <footer>
           Min Heap is maintained by <a href="https://github.com/robin-thomas">robin-thomas</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
         </footer>
 
         
